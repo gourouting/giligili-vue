@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  violet:
+    image: registry.cn-hongkong.aliyuncs.com/chengka/violet:latest
+    restart: always
+    ports:
+      - 3010:80
