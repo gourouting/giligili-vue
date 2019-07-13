@@ -3,12 +3,12 @@
     <div class="">
       <el-row :gutter="20">
         <el-col :span="4" v-for="video in videos" :key="video.id">
-          <el-card>
+          <el-card class="video-card" @click.native="goVideo(video)">
             <img class="video-avatar" src="../assets/avatar.jpg">
             <div>
               <div class="video-title">{{video.title}}</div>
               <div class="video-bottom clearfix">
-                <span class="video-info">{{video.info}}</span>
+                <span class="video-info">{{video.info.substring(0, 40)}}</span>
               </div>
             </div>
           </el-card>
@@ -34,6 +34,9 @@ export default {
         this.videos = res.data;
       });
     },
+    goVideo(video) {
+      this.$router.push({ name: 'showVideo', params: { videoID: video.id } });
+    },
   },
   components: {
   },
@@ -49,11 +52,17 @@ export default {
 }
 .video-title {
   margin: 4px 0px 4px 0px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .video-bottom {
   margin-top: 4px;
 }
 .video-info {
   color: #909399;
+}
+.video-card {
+  cursor: pointer;
 }
 </style>
