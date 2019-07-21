@@ -4,7 +4,7 @@
       <el-row :gutter="20">
         <el-col :span="4" v-for="video in videos" :key="video.id">
           <el-card class="video-card" @click.native="goVideo(video)">
-            <img class="video-avatar" src="../assets/avatar.jpg">
+            <img class="video-avatar" :src="video.avatar">
             <div>
               <div class="video-title">{{video.title}}</div>
               <div class="video-bottom clearfix">
