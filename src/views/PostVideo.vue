@@ -85,7 +85,12 @@ export default {
       });
     },
     onSubmit() {
-      API.postVideo(this.form).then((res) => {
+      API.postVideo({
+        title: this.form.title,
+        info: this.form.info,
+        url: this.form.url,
+        avatar: this.form.avatar,
+      }).then((res) => {
         if (res.status > 0) {
           this.$notify.error({
             title: '投稿失败',
