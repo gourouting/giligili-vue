@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <div class="">
+    <div class="top">
       <el-row :gutter="20">
-        <el-col :span="4" v-for="video in videos" :key="video.id">
+        <el-col :xs="24" :md="4" :sm="8" v-for="video in videos" :key="video.id">
           <el-card class="video-card" @click.native="goVideo(video)">
             <img class="video-avatar" :src="video.avatar">
             <div>
@@ -14,6 +14,16 @@
           </el-card>
         </el-col>
       </el-row>
+      <div class="block">
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :page-sizes="[6, 12]"
+          :page-size="6"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="total">
+        </el-pagination>
+      </div>
     </div>
   </div>
 </template>
@@ -26,12 +36,24 @@ export default {
   data() {
     return {
       videos: [],
+      start: 0,
+      limit: 6,
+      total: 0,
     };
   },
   methods: {
+    handleSizeChange(val) {
+      this.limit = val;
+      this.load();
+    },
+    handleCurrentChange(val) {
+      this.start = this.limit * (val - 1); // val 页面
+      this.load();
+    },
     load() {
-      API.getVideos().then((res) => {
-        this.videos = res.data;
+      API.getVideos(this.start, this.limit).then((res) => {
+        this.videos = res.data.items;
+        this.total = res.data.total;
       });
     },
     goVideo(video) {
@@ -63,6 +85,7 @@ export default {
   color: #909399;
 }
 .video-card {
+  margin-bottom: 14px;
   cursor: pointer;
 }
 </style>

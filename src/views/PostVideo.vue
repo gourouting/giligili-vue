@@ -58,15 +58,15 @@ export default {
   },
   methods: {
     fnBeforeUpload(file) {
-      const isPNG = file.type === 'image/png';
+      const isImage = (file.type === 'image/png' || file.type === 'image/jpeg');
       const isLt2M = file.size / 1024 / 1024 < 2;
-      if (!isPNG) {
-        this.$message.error('上传头像图片只能是 PNG 格式!');
+      if (!isImage) {
+        this.$message.error('上传头像图片只能是图片!');
       }
       if (!isLt2M) {
         this.$message.error('上传头像图片大小不能超过 2MB!');
       }
-      return isPNG && isLt2M;
+      return isImage && isLt2M;
     },
     fnUploadRequest(option) {
       uplpadAPI(option.file.name).then((res) => {
