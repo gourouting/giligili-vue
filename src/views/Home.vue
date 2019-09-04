@@ -2,7 +2,7 @@
   <div class="home">
     <div class="top">
       <el-row :gutter="20">
-        <el-col :xs="24" :md="4" :sm="8" v-for="video in videos" :key="video.id">
+        <el-col :xs="24" :sm="8" :md="8" v-for="video in videos" :key="video.id">
           <el-card class="video-card" @click.native="goVideo(video)">
             <img class="video-avatar" :src="video.avatar">
             <div>
@@ -18,9 +18,8 @@
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :page-sizes="[6, 12]"
           :page-size="6"
-          layout="total, sizes, prev, pager, next, jumper"
+          layout="prev, pager, next"
           :total="total">
         </el-pagination>
       </div>
@@ -42,10 +41,6 @@ export default {
     };
   },
   methods: {
-    handleSizeChange(val) {
-      this.limit = val;
-      this.load();
-    },
     handleCurrentChange(val) {
       this.start = this.limit * (val - 1); // val 页面
       this.load();

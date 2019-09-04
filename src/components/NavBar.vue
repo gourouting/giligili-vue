@@ -15,6 +15,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .top-bar {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 </style>
